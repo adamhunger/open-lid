@@ -235,7 +235,40 @@ Hot-key registration checked successfully without input-monitoring permission.
 The earlier version's actual disable/restore operation worked on this Mac.
 The revised app still needs an interactive shortcut, unplug, and sleep/wake test.
 
-API background consulted:
-https://github.com/calvincchan/displaytoggle/blob/main/Sources/displaytoggle/DisplayManager.swift
-https://developer.apple.com/documentation/foundation/timer
-Implementation written independently for this local utility.
+## Disclaimer
+
+Open Lid relies on private Apple frameworks (SkyLight) that are undocumented
+and unsupported. Any macOS update may change or remove them, which could make
+the app stop working or behave unexpectedly. When automatic mode is on, the
+built-in display is disabled until the app restores it, you press
+Control–Option–Command–R, or the app quits. If the app and macOS both fail,
+you may need to reconnect the external monitor or restart the Mac to get the
+built-in display back.
+
+This software is provided as is, without warranty of any kind, as stated in
+the MIT License. Use it at your own risk. Open Lid is an independent project
+and is not affiliated with, endorsed by, or supported by Apple Inc. macOS,
+MacBook, Xcode, and Swift are trademarks of Apple Inc.
+
+## Acknowledgments
+
+The SkyLight approach used here, calling `SLSGetDisplayList` to find the
+built-in display while it is disabled and `SLSConfigureDisplayEnabled` to turn
+it on or off, was learned by reading Calvin C. Chan's
+[displaytoggle](https://github.com/calvincchan/displaytoggle) command-line
+tool. Open Lid's implementation was written independently; no code was copied
+from that project.
+
+Apple's [Timer documentation](https://developer.apple.com/documentation/foundation/timer)
+informed the polling design.
+
+## Author and maintainer
+
+Adam Hunger ([@adamhunger](https://github.com/adamhunger) on GitHub).
+Issues and pull requests are welcome at
+https://github.com/adamhunger/open-lid.
+
+## License
+
+Open Lid is released under the [MIT License](LICENSE).
+Copyright (c) 2026 Adam Hunger.
